@@ -27,10 +27,6 @@ variable "ec2_name" {
   default = "dojosonar"
 }
 
-variable "ec2_name" {
-  default = "dojosonar"
-}
-
 variable "sg_name_rds" {
   default = "sg-dojosonar"
 }
