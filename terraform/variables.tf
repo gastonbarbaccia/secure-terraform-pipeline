@@ -24,6 +24,10 @@ variable "db_password" {
 }
 
 
+variable "ec2_name" {
+  default = "dojosonar"
+}
+
 variable "sg_name_ec2" {
   default = "sg_dojosonar_ec2"
 }
