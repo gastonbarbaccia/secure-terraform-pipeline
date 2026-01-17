@@ -12,4 +12,4 @@
 # Use docker compose logs -f initializer to track its progress.
 docker compose logs initializer | grep "Admin password:"
 
-psql -h app-postgres-db-13.c03m4kyqg0dy.us-east-1.rds.amazonaws.com -U dojosonar_admin -d postgres -p 5432
+psql -h app-postgres-db-14.c03m4kyqg0dy.us-east-1.rds.amazonaws.com -U dojosonar_admin -d postgres -p 5432
