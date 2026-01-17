@@ -28,10 +28,10 @@ variable "ec2_name" {
 }
 
 variable "sg_name_rds" {
-  default = "sg-dojosonar"
+  default = "sg_dojosonar"
 }
 
 variable "secure_subnet_name" {
-  default = "subnet-dojosonar"
+  default = "subnet_dojosonar"
 }
 
