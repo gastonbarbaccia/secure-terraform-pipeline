@@ -85,7 +85,7 @@ resource "aws_instance" "ec2" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "secure-ec2-2"
+    Name = var.ec2_name
   }
 }
 
