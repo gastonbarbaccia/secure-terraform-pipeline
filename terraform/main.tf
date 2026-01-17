@@ -95,7 +95,7 @@ resource "aws_instance" "ec2" {
 
               apt update -y
               apt upgrade -y
-              apt install ca-certificates curl gnupg lsb-release -y
+              apt install ca-certificates curl gnupg lsb-release postgresql-client -y
 
               install -m 0755 -d /etc/apt/keyrings
               curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -142,4 +142,21 @@ resource "aws_db_instance" "postgres" {
   db_subnet_group_name   = aws_db_subnet_group.subnet_group.name
 
   skip_final_snapshot = false
+}
+
+resource "null_resource" "run_sql" {
+
+  depends_on = [aws_db_instance.postgres]
+
+  provisioner "local-exec" {
+    command = <<EOT
+      export PGPASSWORD='${var.db_password}'
+      psql \
+        -h ${aws_db_instance.postgres.address} \
+        -U ${var.db_username} \
+        -d ${aws_db_instance.postgres.db_name} \
+        -p 5432 \
+        -f ./sql/create_databases.sql
+    EOT
+  }
 }
