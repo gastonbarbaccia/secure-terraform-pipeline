@@ -166,7 +166,7 @@ resource "null_resource" "run_sql" {
   }
 
   provisioner "file" {
-    source      = "./sql/create_databases.sql"
+    source      = "${path.module}/../sql/create_databases.sql"
     destination = "/home/ubuntu/create_databases.sql"
   }
 
