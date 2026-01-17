@@ -54,7 +54,7 @@ resource "aws_security_group" "ec2_sg" {
 
 
 resource "aws_security_group" "rds_sg" {
-  name   = "secure-rds-sg"
+  name   = "secure-rds-sg-2"
   vpc_id = data.aws_vpc.default.id
 
   ingress {
@@ -85,7 +85,7 @@ resource "aws_instance" "ec2" {
   associate_public_ip_address = true
 
   tags = {
-    Name = "secure-ec2"
+    Name = "secure-ec2-2"
   }
 }
 

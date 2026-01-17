@@ -1,6 +1,9 @@
 name: Secure Terraform Deploy
 
 on:
+  push:
+    branches: 
+      - develop
   workflow_dispatch:
     inputs:
       instance_type:
