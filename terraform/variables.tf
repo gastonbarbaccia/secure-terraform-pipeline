@@ -41,3 +41,6 @@ variable "secure_subnet_name" {
   default = "subnet_dojosonar"
 }
 
+variable "db_name" {
+  default = "app-postgres-db"
+}
