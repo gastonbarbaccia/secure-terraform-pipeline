@@ -1,3 +1,4 @@
+/*
 provider "aws" {
   region = var.aws_region
 }
@@ -111,3 +112,4 @@ resource "aws_db_instance" "postgres" {
 
   skip_final_snapshot = false
 }
+*/
