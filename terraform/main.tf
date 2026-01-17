@@ -25,7 +25,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_security_group" "ec2_sg" {
-  name   = var.ec2_name
+  name   = var.sg_name_ec2
   vpc_id = data.aws_vpc.default.id
 
   ingress {

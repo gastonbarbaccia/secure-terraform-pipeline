@@ -23,12 +23,14 @@ variable "db_password" {
   sensitive = true
 }
 
-variable "ec2_name" {
-  default = "dojosonar"
+
+variable "sg_name_ec2" {
+  default = "sg_dojosonar_ec2"
 }
 
+
 variable "sg_name_rds" {
-  default = "sg_dojosonar"
+  default = "sg_dojosonar_rds"
 }
 
 variable "secure_subnet_name" {
