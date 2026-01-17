@@ -25,20 +25,20 @@ variable "db_password" {
 
 
 variable "ec2_name" {
-  default = "dojosonar"
+  default = "dojo_sonar"
 }
 
 variable "sg_name_ec2" {
-  default = "sg_dojosonar_ec2"
+  default = "sg_dojo_sonar_ec2"
 }
 
 
 variable "sg_name_rds" {
-  default = "sg_dojosonar_rds"
+  default = "sg_dojo_sonar_rds"
 }
 
 variable "secure_subnet_name" {
-  default = "subnet_dojosonar"
+  default = "subnet_dojo_sonar"
 }
 
 variable "db_name" {
