@@ -1,4 +1,3 @@
-/*
 provider "aws" {
   region = var.aws_region
 }
@@ -26,7 +25,7 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_security_group" "ec2_sg" {
-  name   = "secure-ec2-sg-2"
+  name   = var.ec2_name
   vpc_id = data.aws_vpc.default.id
 
   ingress {
@@ -55,7 +54,7 @@ resource "aws_security_group" "ec2_sg" {
 
 
 resource "aws_security_group" "rds_sg" {
-  name   = "secure-rds-sg-2"
+  name   = var.sg_name_rds
   vpc_id = data.aws_vpc.default.id
 
   ingress {
@@ -91,7 +90,7 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_db_subnet_group" "subnet_group" {
-  name       = "secure-subnet-group"
+  name       = var.secure_subnet_name
   subnet_ids = data.aws_subnets.default.ids
 }
 
@@ -112,4 +111,3 @@ resource "aws_db_instance" "postgres" {
 
   skip_final_snapshot = false
 }
-*/
