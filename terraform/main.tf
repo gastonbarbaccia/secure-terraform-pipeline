@@ -90,7 +90,7 @@ resource "aws_instance" "ec2" {
     encrypted   = true
   }
 
-  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+  vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
   associate_public_ip_address = true
 
   tags = {
@@ -132,19 +132,19 @@ resource "aws_db_subnet_group" "subnet_group" {
 }
 
 resource "aws_db_instance" "postgres" {
-  
+
   identifier = var.db_name
 
-  allocated_storage      = var.db_storage
-  engine                 = "postgres"
-  instance_class         = var.db_instance_class
-  db_name                = "appdb"
-  username               = var.db_username
-  password               = var.db_password
+  allocated_storage = var.db_storage
+  engine            = "postgres"
+  instance_class    = var.db_instance_class
+  db_name           = "appdb"
+  username          = var.db_username
+  password          = var.db_password
 
-  publicly_accessible    = false
-  storage_encrypted      = true
-  deletion_protection    = true
+  publicly_accessible = false
+  storage_encrypted   = true
+  deletion_protection = true
 
   vpc_security_group_ids = [aws_security_group.rds_sg.id]
   db_subnet_group_name   = aws_db_subnet_group.subnet_group.name
@@ -174,9 +174,18 @@ resource "null_resource" "run_sql" {
     inline = [
       "set -e",
       "echo 'Waiting for RDS...'",
-      "until pg_isready -h ${aws_db_instance.postgres.address} -p 5432 -U ${var.db_username}; do sleep 5; done",
+
+      # Exportar password ANTES
       "export PGPASSWORD='${var.db_password}'",
-      "psql -h ${aws_db_instance.postgres.address} -U ${var.db_username} -d ${aws_db_instance.postgres.db_name} -f /home/ubuntu/create_databases.sql"
+
+      # Esperar conexión real a postgres
+      "until psql -h ${aws_db_instance.postgres.address} -U ${var.db_username} -d postgres -c '\\q' 2>/dev/null; do sleep 5; done",
+
+      "echo 'RDS ready, running SQL script...'",
+
+      # Ejecutar script
+      "psql -h ${aws_db_instance.postgres.address} -U ${var.db_username} -d postgres -f /home/ubuntu/create_databases.sql"
     ]
   }
+
 }
