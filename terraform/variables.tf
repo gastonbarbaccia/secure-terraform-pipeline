@@ -51,5 +51,5 @@ variable "key_pair_name" {
 
 
 variable "private_key_file" {
-  sensitive = true
+  type = string
 }
