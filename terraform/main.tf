@@ -37,6 +37,14 @@ resource "aws_security_group" "ec2_sg" {
   }
 
   ingress {
+    description = "Allow 22"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     description = "Allow 9000"
     from_port   = 9000
     to_port     = 9000
@@ -145,18 +153,30 @@ resource "aws_db_instance" "postgres" {
 }
 
 resource "null_resource" "run_sql" {
+  depends_on = [
+    aws_instance.ec2,
+    aws_db_instance.postgres
+  ]
 
-  depends_on = [aws_db_instance.postgres]
+  connection {
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file(var.private_key_path)
+    host        = aws_instance.ec2.public_ip
+  }
 
-  provisioner "local-exec" {
-    command = <<EOT
-      export PGPASSWORD='${var.db_password}'
-      psql \
-        -h ${aws_db_instance.postgres.address} \
-        -U ${var.db_username} \
-        -d ${aws_db_instance.postgres.db_name} \
-        -p 5432 \
-        -f ./sql/create_databases.sql
-    EOT
+  provisioner "file" {
+    source      = "./sql/create_databases.sql"
+    destination = "/home/ubuntu/create_databases.sql"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "set -e",
+      "echo 'Waiting for RDS...'",
+      "until pg_isready -h ${aws_db_instance.postgres.address} -p 5432 -U ${var.db_username}; do sleep 5; done",
+      "export PGPASSWORD='${var.db_password}'",
+      "psql -h ${aws_db_instance.postgres.address} -U ${var.db_username} -d ${aws_db_instance.postgres.db_name} -f /home/ubuntu/create_databases.sql"
+    ]
   }
 }

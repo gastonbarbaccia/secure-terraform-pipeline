@@ -48,3 +48,7 @@ variable "db_name" {
 variable "key_pair_name" {
   default = "security"
 }
+
+variable "private_key_path" {
+  default = "/home/ubuntu/.ssh/id_rsa"
+}
