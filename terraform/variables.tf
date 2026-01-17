@@ -25,24 +25,24 @@ variable "db_password" {
 
 
 variable "ec2_name" {
-  default = "dojo_sonar-3"
+  default = "dojo_sonar-4"
 }
 
 variable "sg_name_ec2" {
-  default = "sg_dojo_sonar_ec2-3"
+  default = "sg_dojo_sonar_ec2-4"
 }
 
 
 variable "sg_name_rds" {
-  default = "sg_dojo_sonar_rds-3"
+  default = "sg_dojo_sonar_rds-4"
 }
 
 variable "secure_subnet_name" {
-  default = "subnet_dojo_sonar-3"
+  default = "subnet_dojo_sonar-4"
 }
 
 variable "db_name" {
-  default = "app-postgres-db-3"
+  default = "app-postgres-db-4"
 }
 
 variable "key_pair_name" {
