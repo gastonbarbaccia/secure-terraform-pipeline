@@ -3,7 +3,7 @@ CREATE USER sonar_user WITH PASSWORD 'SonarStrongPassword';
 CREATE USER dojo_user WITH PASSWORD 'DojoStrongPassword';
 
 -- Crear bases de datos asignando dueño
-CREATE DATABASE sonarqube OWNER sonaruser;
+CREATE DATABASE sonarqube OWNER sonar_user;
 CREATE DATABASE defectdojo OWNER dojo_user;
 
 -- Permisos adicionales (opcional pero recomendado)
