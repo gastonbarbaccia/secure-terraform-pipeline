@@ -94,6 +94,7 @@ resource "aws_instance" "ec2" {
               set -e
 
               apt update -y
+              apt upgrade -y
               apt install ca-certificates curl gnupg lsb-release -y
 
               install -m 0755 -d /etc/apt/keyrings
@@ -110,6 +111,9 @@ resource "aws_instance" "ec2" {
               systemctl start docker
 
               usermod -aG docker ubuntu
+              git clone https://github.com/DefectDojo/django-DefectDojo.git
+              cd django-DefectDojo
+              docker compose up -d
               EOF
 }
 
