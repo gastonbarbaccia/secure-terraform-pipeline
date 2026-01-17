@@ -75,6 +75,7 @@ resource "aws_security_group" "rds_sg" {
 resource "aws_instance" "ec2" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = var.instance_type
+  key_name      = var.key_pair_name
 
   root_block_device {
     volume_size = var.instance_disk_size
@@ -87,6 +88,12 @@ resource "aws_instance" "ec2" {
   tags = {
     Name = var.ec2_name
   }
+
+  user_data = <<-EOF
+              #!/bin/bash
+              apt update -y
+              apt upgrade -y
+              EOF
 }
 
 resource "aws_db_subnet_group" "subnet_group" {

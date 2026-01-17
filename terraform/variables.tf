@@ -44,3 +44,7 @@ variable "secure_subnet_name" {
 variable "db_name" {
   default = "app-postgres-db"
 }
+
+variable "key_pair_name" {
+  default = "security"
+}
