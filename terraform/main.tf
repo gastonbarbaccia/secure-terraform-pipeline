@@ -161,7 +161,7 @@ resource "null_resource" "run_sql" {
   connection {
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file(var.private_key_path)
+    private_key = file(var.private_key_file)
     host        = aws_instance.ec2.public_ip
   }
 
